@@ -62,5 +62,3 @@ def main():
     print(f'AC数 : {ac}')
 
 main()
-
-### GitHub Test ###
