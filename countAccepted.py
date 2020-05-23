@@ -39,23 +39,27 @@ class User:
                 table = soup.find(
                     class_="table table-bordered table-striped small th-center"
                 )
-                submit = []
+
                 try:
-                    submit = table.tbody('tr')
+                    submissions = table.tbody('tr')
                 except AttributeError:
                     pass
+                else:
+                    problems = set()
+                    for submission in submissions:
+                        problems.add(submission('td')[1].a.get('href'))
 
-                ac = ac + len(submit)
+                ac = ac + len(problems)
                 cnt = cnt + 1
                 time.sleep(1)
             
         return ac
 
 def main():
-    user = input('ユーザー名を入力して下さい : ')
-    mUser = User(user)
+    name = input('ユーザー名を入力して下さい : ')
+    user = User(name)
     t1 = time.time()
-    ac = mUser.count_accepted()
+    ac = user.count_accepted()
     t2 = time.time()
     dt = t2 - t1
     print(f'実行時間：{dt}')
